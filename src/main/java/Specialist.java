@@ -9,15 +9,6 @@ public class Specialist implements Runnable{
 
     @Override
     public void run() {
-        synchronized (atc) {
-            while (atc.empty()){
-                try {
-                    atc.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
         while (!atc.empty()) {
             number = atc.getBell();
             try {

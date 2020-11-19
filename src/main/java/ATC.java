@@ -2,7 +2,7 @@ import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class ATC implements Runnable{
-    private int count = 60;
+    private int count = 6;
     private int sleep = 1000;
     private Deque<Bell> bellDeque = new ConcurrentLinkedDeque<>();
 
@@ -15,11 +15,6 @@ public class ATC implements Runnable{
                 e.printStackTrace();
             }
             bellDeque.add(new Bell(i));
-            if(i <= count) {
-                synchronized (this){
-                    this.notify();
-                }
-            }
         }
     }
 
