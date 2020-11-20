@@ -1,10 +1,10 @@
-import java.util.Deque;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ATC implements Runnable{
-    private int count = 6;
+    private int count = 60;
     private int sleep = 1000;
-    private Deque<Bell> bellDeque = new ConcurrentLinkedDeque<>();
+    private Queue<Bell> bellQueue = new ConcurrentLinkedQueue<>();
 
     @Override
     public void run() {
@@ -14,20 +14,20 @@ public class ATC implements Runnable{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            bellDeque.add(new Bell(i));
+            bellQueue.add(new Bell(i));
         }
+
     }
 
-    public Boolean empty(){
-        return bellDeque.isEmpty();
+    public Bell getBell() {
+       return bellQueue.poll();
     }
 
-    public String getBell() {
-        if (empty()){
-            return null;
-        } else {
-            return bellDeque.remove().toString();
-        }
+    public int getBellQueueSize(){
+        return bellQueue.size();
     }
 
+    /*public void bellInQueue(){
+        System.out.println("Звонков в очереди " + bellQueue.size());
+    }*/
 }
